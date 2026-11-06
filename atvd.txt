@@ -1,0 +1,101 @@
+AT PRÁTICA – DESENVOLVIMENTO DE UM JOGO WEB COM JAVASCRIPT E AP
+Data de conclusão 13 de novembro de 2026 às 13:00
+•
+Vários envios permitidos
+•
+Fecha 13 de novembro de 2026 às 13:00
+Instruções
+Olá Estudantes, Bom Dia!
+Efetue a leitura das instruções e realize a atividade. 
+Desenvolva um jogo de perguntas e respostas inspirado no Show do Milhão, utilizando HTML, CSS e JavaScript.
+
+Todos deverão seguir a mesma estrutura básica de funcionamento, mas poderão escolher livremente o tema, o nome e a identidade visual do jogo.
+
+O desafio é criar um jogo funcional, criativo e com identidade visual própria.
+
+Etapas de desenvolvimento
+1. Planejamento
+
+Escolha o tema e o nome do jogo.
+
+Defina as cores e a identidade visual.
+
+Planeje as telas e funcionalidades.
+
+2. Construção do projeto
+
+Crie os arquivos index.html, style.css e script.js.
+
+Desenvolva a interface e a lógica do jogo.
+
+Implemente perguntas, alternativas, verificação das respostas, pontuação e resultado final.
+
+3. Consumo de API
+
+Utilize uma API externa para obter as perguntas e alternativas.
+
+Utilize fetch(), async e await para realizar as requisições.
+
+Identifique, por meio de comentários no JavaScript, os trechos responsáveis pelo consumo da API.
+
+Os dados recebidos deverão ser efetivamente utilizados no jogo.
+
+API sugerida: https://opentdb.com/
+
+
+4. Utilização da Inteligência Artificial
+A utilização de uma IA, como ChatGPT ou Gemini, é obrigatória durante o desenvolvimento. Utilize-a para auxiliar na criação, compreensão, correção e melhoria do projeto.
+
+Você deverá registrar no README qual ferramenta utilizou, os principais prompts e como a IA contribuiu para o desenvolvimento. É necessário compreender o código produzido.
+
+5. Documentação
+Crie um arquivo README.md contendo:
+
+Nome e descrição do jogo.
+
+Tema escolhido e tecnologias utilizadas.
+
+Etapas de desenvolvimento.
+
+API utilizada e sua finalidade.
+
+Registro da utilização da IA e dos principais prompts.
+
+Instruções para executar o jogo.
+
+Link do jogo publicado.
+
+6. Testes e publicação
+
+Teste todas as funcionalidades.
+
+Verifique se o jogo funciona localmente.
+
+Publique o projeto no GitHub Pages.
+
+Teste o jogo por meio do endereço publicado.
+
+Requisitos de entrega
+ Jogo funcional.
+ HTML, CSS e JavaScript em arquivos separados.
+ Consumo de API externa identificado no código.
+ Utilização de IA durante o desenvolvimento.
+ README completo.
+ Identidade visual criativa e original.
+ Projeto publicado no GitHub Pages.
+Critérios de avaliação
+Serão avaliados o funcionamento do jogo, a utilização do JavaScript, o consumo da API, a criatividade do design, o uso consciente da IA, a organização do código, a documentação e a publicação.
+
+Atenção: O READme deve explicar como o jogo funciona, especialmente como a API é consultada e como os dados recebidos são utilizados pelo JavaScript.
+
+
+
+Entrega da atividade
+A entrega deverá ser realizada exclusivamente por meio de um link enviado no Microsoft Teams.
+
+O link deverá direcionar para o repositório do projeto no GitHub, contendo os arquivos index.html, style.css, script.js e README.md.
+
+O README deverá apresentar também o link do jogo publicado no GitHub Pages.
+
+Verifique se os links estão públicos e funcionando antes de realizar o envio.
+

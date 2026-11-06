@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mito Milhão — O Show dos Deuses</title>
+  <meta name="description" content="Jogo de perguntas e respostas sobre mitologia inspirado no Show do Milhão.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Céu estrelado (as estrelas são criadas pelo JavaScript) -->
+  <div id="sky" aria-hidden="true"></div>
+
+  <main class="app">
+
+    <!-- ===================== TELA INICIAL ===================== -->
+    <section id="screen-start" class="screen active">
+      <div class="logo">
+        <svg class="logo-column" viewBox="0 0 64 96" aria-hidden="true">
+          <rect x="4" y="2" width="56" height="8" rx="2" />
+          <rect x="10" y="12" width="44" height="5" rx="1.5" />
+          <rect x="14" y="19" width="6" height="58" rx="2" />
+          <rect x="24" y="19" width="6" height="58" rx="2" />
+          <rect x="34" y="19" width="6" height="58" rx="2" />
+          <rect x="44" y="19" width="6" height="58" rx="2" />
+          <rect x="10" y="79" width="44" height="5" rx="1.5" />
+          <rect x="4" y="86" width="56" height="8" rx="2" />
+        </svg>
+        <h1 class="logo-title">Mito <span>Milhão</span></h1>
+        <p class="logo-sub">O show de perguntas dos deuses</p>
+      </div>
+
+      <div class="marble-card start-card">
+        <p class="start-text">
+          Responda <strong>16 perguntas</strong> sobre mitologia grega, nórdica, egípcia e outras,
+          e conquiste <strong>R$ 1 milhão</strong> no Olimpo.
+        </p>
+
+        <div class="lang-picker">
+          <span class="lang-label">Idioma das perguntas</span>
+          <div class="lang-toggle" role="group" aria-label="Idioma das perguntas">
+            <button class="lang-btn" data-lang="en" type="button">🇺🇸 English</button>
+            <button class="lang-btn" data-lang="pt" type="button">🇧🇷 Português</button>
+          </div>
+          <small class="lang-hint">Em português, as perguntas são traduzidas automaticamente por uma API.</small>
+        </div>
+
+        <div class="start-actions">
+          <button id="btn-start" class="btn btn-primary" type="button">Começar</button>
+          <button id="btn-rules" class="btn btn-ghost" type="button">Como jogar</button>
+        </div>
+
+        <p class="best">Seu recorde: <strong id="best-score">R$ 0</strong></p>
+      </div>
+    </section>
+
+    <!-- ===================== CARREGANDO ===================== -->
+    <section id="screen-loading" class="screen">
+      <div class="oracle-orb" aria-hidden="true"></div>
+      <p id="loading-text" class="loading-text">Consultando o Oráculo...</p>
+    </section>
+
+    <!-- ===================== ERRO ===================== -->
+    <section id="screen-error" class="screen">
+      <div class="marble-card error-card">
+        <h2>O Oráculo está em silêncio</h2>
+        <p id="error-message"></p>
+        <div class="start-actions">
+          <button id="btn-retry" class="btn btn-primary" type="button">Tentar novamente</button>
+          <button class="btn btn-ghost" data-action="home" type="button">Voltar ao início</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== JOGO ===================== -->
+    <section id="screen-game" class="screen">
+      <header class="game-header">
+        <div class="brand">Mito <span>Milhão</span></div>
+        <div class="lang-toggle small" role="group" aria-label="Idioma das perguntas">
+          <button class="lang-btn" data-lang="en" type="button">EN</button>
+          <button class="lang-btn" data-lang="pt" type="button">PT</button>
+        </div>
+      </header>
+
+      <div class="game-layout">
+        <div class="game-main">
+          <div class="question-meta">
+            <div>
+              <span id="question-number" class="question-number">Pergunta 1 de 16</span>
+              <span id="question-difficulty" class="badge">Fácil</span>
+              <span id="translating" class="translating hidden">traduzindo...</span>
+            </div>
+            <div class="timer" id="timer" aria-label="Tempo restante">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <circle class="timer-bg" cx="24" cy="24" r="20" />
+                <circle class="timer-ring" id="timer-ring" cx="24" cy="24" r="20" />
+              </svg>
+              <span id="timer-text">45</span>
+            </div>
+          </div>
+
+          <div class="marble-card question-card">
+            <p id="question-text" class="question-text"></p>
+          </div>
+
+          <div id="answers" class="answers"></div>
+
+          <div class="money-row">
+            <div class="money money-wrong"><small>Errar</small><strong id="money-wrong">R$ 0</strong></div>
+            <div class="money money-stop"><small>Parar</small><strong id="money-stop">R$ 0</strong></div>
+            <div class="money money-right"><small>Acertar</small><strong id="money-right">R$ 0</strong></div>
+          </div>
+
+          <div class="helps">
+            <button class="help-btn" id="help-skip" type="button" title="Pula a pergunta atual (3 vezes)">
+              <span class="help-icon">🪽</span>
+              <span class="help-name">Asas de Hermes</span>
+              <small id="skip-count">3 pulos</small>
+            </button>
+            <button class="help-btn" id="help-oracle" type="button" title="Elimina de 1 a 3 alternativas erradas">
+              <span class="help-icon">🔮</span>
+              <span class="help-name">Oráculo de Delfos</span>
+              <small>elimina erradas</small>
+            </button>
+            <button class="help-btn" id="help-council" type="button" title="Três deuses dão a opinião deles">
+              <span class="help-icon">⚡</span>
+              <span class="help-name">Conselho do Olimpo</span>
+              <small>opinião dos deuses</small>
+            </button>
+            <button class="help-btn" id="help-mortals" type="button" title="A plateia de mortais vota">
+              <span class="help-icon">🏺</span>
+              <span class="help-name">Voz dos Mortais</span>
+              <small>votação da plateia</small>
+            </button>
+            <button class="help-btn help-stop" id="btn-stop" type="button" title="Para o jogo e leva o prêmio atual">
+              <span class="help-icon">🛑</span>
+              <span class="help-name">Parar</span>
+              <small>levar o prêmio</small>
+            </button>
+          </div>
+        </div>
+
+        <aside class="ladder" aria-label="Escada de prêmios">
+          <h3>Prêmios</h3>
+          <ol id="ladder-list"></ol>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== FIM DE JOGO ===================== -->
+    <section id="screen-end" class="screen">
+      <div class="marble-card end-card">
+        <div id="end-icon" class="end-icon"></div>
+        <h2 id="end-title"></h2>
+        <p id="end-message"></p>
+        <p id="end-answer" class="end-answer hidden"></p>
+        <p class="end-prize-label">Você leva para casa</p>
+        <p id="end-prize" class="end-prize">R$ 0</p>
+        <p id="end-record" class="end-record hidden">🏆 Novo recorde!</p>
+        <div class="start-actions">
+          <button id="btn-again" class="btn btn-primary" type="button">Jogar novamente</button>
+          <button class="btn btn-ghost" data-action="home" type="button">Início</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Janela modal reutilizada pelas ajudas, regras e confirmação de parar -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box marble-card">
+      <h3 id="modal-title"></h3>
+      <div id="modal-body"></div>
+      <div id="modal-actions" class="modal-actions"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <footer class="credits">
+    Perguntas: <a href="https://opentdb.com/" target="_blank" rel="noopener">Open Trivia Database</a> ·
+    Tradução: <a href="https://mymemory.translated.net/" target="_blank" rel="noopener">MyMemory</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
